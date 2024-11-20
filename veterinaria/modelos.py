@@ -30,4 +30,4 @@ class Publicacion(models.Model):
     def dias_para_proxima_vacuna(self):
         proxima_vacuna = self.ultima_vacuna + timedelta(days=365)
         dias_restantes = (proxima_vacuna - date.today()).days
-        return dias_restantes
+        return dias_restantes 
