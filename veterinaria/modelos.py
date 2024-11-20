@@ -1,4 +1,3 @@
-# veterinaria/modelos.py
 from django.db import models
 from datetime import timedelta
 from datetime import date

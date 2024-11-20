@@ -17,7 +17,6 @@
                 <p><strong>Descripción:</strong> {{ gato.descripcion }}</p>
                 <p><strong>Edad:</strong> {{ gato.edad }}</p>
                 
-                <!-- Días para próxima pipeta -->
                 <p><strong>Días para próxima pipeta:</strong>
                     {% if dias_para_pipeta == "Sin fecha de última pipeta" %}
                         {{ dias_para_pipeta }}
@@ -26,7 +25,6 @@
                     {% endif %}
                 </p>
                 
-                <!-- Días para próxima vacuna -->
                 <p><strong>Días para próxima vacuna:</strong>
                     {% if dias_para_vacuna == "Sin fecha de última vacuna" %}
                         {{ dias_para_vacuna }}
