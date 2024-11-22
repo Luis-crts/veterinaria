@@ -4,6 +4,8 @@ from .modelos import Publicacion
 from django.shortcuts import get_object_or_404
 from datetime import date
 from django.db.models import Q
+from django.shortcuts import render, redirect
+from .forms import PublicacionForm
 
 
 def lista_publicaciones(request):
@@ -42,3 +44,13 @@ def detalle_gato(request, gato_id):
         'dias_para_pipeta': dias_para_pipeta,
         'dias_para_vacuna': dias_para_vacuna
     })
+    
+def añadir_paciente(request):
+    if request.method == 'POST':
+        form = PublicacionForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_gatos')  # Redirigir a la lista después de añadir
+    else:
+        form = PublicacionForm()
+    return render(request, 'añadir_paciente.html', {'form': form})

@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('gatos/', views.lista_gatos, name='lista_gatos'),
     path('gatos/<int:gato_id>/', views.detalle_gato, name='detalle_gato'),
+    path('añadir/', views.añadir_paciente, name='añadir_paciente'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
