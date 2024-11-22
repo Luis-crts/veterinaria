@@ -10,23 +10,21 @@
 </head>
 
 <body>
-    <h1 class="text-center mb-4">Veterinaria</h1>
-    {% load static %}
-    <form method="GET" class="mb-4">
-        <div class="row">
+    <div class="container mt-3">
+        <h1 class="text-center">Veterinaria</h1>
+        <!-- Filtro -->
+        <form method="GET" class="filtro-container">
             <!-- Campo de búsqueda por nombre -->
-            <div class="col-md-6">
-                <div class="input-group">
-                    <input 
-                        type="text" 
-                        name="nombre" 
-                        class="form-control" 
-                        placeholder="Buscar por nombre" 
-                        value="{{ request.GET.nombre }}">
-                </div>
+            <div>
+                <input 
+                    type="text" 
+                    name="nombre" 
+                    class="form-control" 
+                    placeholder="Buscar por nombre" 
+                    value="{{ request.GET.nombre }}">
             </div>
             <!-- Filtro por categoría -->
-            <div class="col-md-4">
+            <div>
                 <select name="categoria" class="form-select">
                     <option value="">Todos</option>
                     <option value="gato" {% if request.GET.categoria == "gato" %}selected{% endif %}>Gatos</option>
@@ -34,28 +32,28 @@
                 </select>
             </div>
             <!-- Botón de búsqueda -->
-            <div class="col-md-2">
-                <button class="btn btn-primary w-100" type="submit">Buscar</button>
+            <div>
+                <button class="btn btn-primary" type="submit">Buscar</button>
             </div>
-        </div>
-    </form>
-    <div class="container">
+        </form>
+        <!-- Lista de publicaciones -->
         <div class="row">
             {% for gato in gatos %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ gato.imagen.url }}" alt="{{ gato.nombre }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ gato.nombre }}</h5>
-                            <p class="card-text">Edad: {{ gato.edad }}</p>
-                            <a href="{% url 'detalle_gato' gato.id %}" class="stretched-link"></a>
-                        </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="{{ gato.imagen.url }}" alt="{{ gato.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ gato.nombre }}</h5>
+                        <p class="card-text">Edad: {{ gato.edad }}</p>
                     </div>
                 </div>
-            {% empty %}
-                <p class="text-center">No hay gatos disponibles.</p>
+            </div>
             {% endfor %}
+            {% if gatos|length == 0 %}
+            <p class="text-center">No se encontraron resultados.</p>
+            {% endif %}
         </div>
     </div>
 </body>
 </html>
+
