@@ -8,7 +8,7 @@ class PublicacionForm(forms.ModelForm):
         ('no', 'No ha sido suministrado')
     ]
     ESTADO_VACUNA = [
-        ('1', 'Vacuna de 1 año'),
+        ('1', '1 año'),
         ('no', 'No ha sido suministrado')
     ]
     

@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de {{ gato.nombre }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Información de {{ gato.nombre }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Información de {{ gato.nombre }}</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Información de {{ gato.nombre }}</h1>
+            <a href="{% url 'lista_gatos' %}" class="btn btn-primary">Retroceder</a>
+        </div>
         <div class="row mt-4">
             <div class="col-md-6">
                 <img src="{{ gato.imagen.url }}" class="img-fluid" alt="{{ gato.nombre }}">
@@ -16,24 +19,22 @@
             <div class="col-md-6">
                 <p><strong>Descripción:</strong> {{ gato.descripcion }}</p>
                 <p><strong>Edad:</strong> {{ gato.edad }}</p>
-                
-                <p><strong>Días para próxima pipeta:</strong>
-                    {% if dias_para_pipeta == "Sin fecha de última pipeta" %}
-                        {{ dias_para_pipeta }}
-                    {% else %}
-                        {{ dias_para_pipeta }} días
-                    {% endif %}
-                </p>
-                
-                <p><strong>Días para próxima vacuna:</strong>
-                    {% if dias_para_vacuna == "Sin fecha de última vacuna" %}
-                        {{ dias_para_vacuna }}
-                    {% else %}
-                        {{ dias_para_vacuna }} días
-                    {% endif %}
-                </p>
+                <p><strong>Días para próxima pipeta:</strong> <span id="dias_pipeta">{{ dias_para_pipeta }}</span> días</p>
+                <p><strong>Días para próxima vacuna:</strong> <span id="dias_vacuna">{{ dias_para_vacuna }}</span> días</p>
             </div>
         </div>
     </div>
+
+    <script>
+        const diasPipeta = parseInt(document.getElementById('dias_pipeta').textContent);
+        const diasVacuna = parseInt(document.getElementById('dias_vacuna').textContent);
+
+        if (diasPipeta === 0) {
+            alert('¡Hoy es el día de aplicar la pipeta!');
+        }
+        if (diasVacuna === 0) {
+            alert('¡Hoy es el día de administrar la vacuna!');
+        }
+    </script>
 </body>
 </html>

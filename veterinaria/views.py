@@ -12,23 +12,18 @@ def lista_publicaciones(request):
     publicaciones = Publicacion.objects.all()
     return render(request, 'lista_publicaciones.html', {'publicaciones': publicaciones})
 
-def index(request):
-    return HttpResponse("¡Bienvenido al sitio de Veterinaria!")
-
-from django.db.models import Q
 
 def lista_gatos(request):
     query = request.GET.get('nombre', '')
     categoria = request.GET.get('categoria', '')
 
-    # Construir el filtro
     filtros = Q()
     if query:
         filtros &= Q(nombre__icontains=query)
     if categoria:
         filtros &= Q(categoria=categoria)
     else:
-        filtros &= Q(categoria__in=['gato', 'perro'])  # Mostrar ambas categorías si no hay filtro
+        filtros &= Q(categoria__in=['gato', 'perro'])
 
     gatos = Publicacion.objects.filter(filtros)
 
@@ -50,7 +45,7 @@ def añadir_paciente(request):
         form = PublicacionForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('lista_gatos')  # Redirigir a la lista después de añadir
+            return redirect('lista_gatos')
     else:
         form = PublicacionForm()
     return render(request, 'añadir_paciente.html', {'form': form})
