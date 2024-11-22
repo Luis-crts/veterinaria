@@ -20,6 +20,18 @@ class Publicacion(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+    duracion_pipeta = models.CharField(max_length=10, choices=[
+        ('1', '1 mes'),
+        ('3', '3 meses'),
+        ('no', 'No ha sido suministrado')
+    ], default='no')
+
+    estado_vacuna = models.CharField(max_length=10, choices=[
+        ('1', 'Vacuna de 1 año'),
+        ('no', 'No ha sido suministrado')
+    ], default='no')
+
 
     def dias_para_proxima_pipeta(self):
         proxima_pipeta = self.ultima_pipeta + timedelta(days=90)
@@ -30,3 +42,5 @@ class Publicacion(models.Model):
         proxima_vacuna = self.ultima_vacuna + timedelta(days=365)
         dias_restantes = (proxima_vacuna - date.today()).days
         return dias_restantes 
+    
+    
