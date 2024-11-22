@@ -5,32 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Gatos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .card {
-            margin: 15px;
-            border-radius: 10px;
-        }
-        .card img {
-            max-height: 300px;
-            object-fit: cover;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+
 <body>
     <h1 class="text-center mb-4">Veterinaria</h1>
+    {% load static %}
     <form method="GET" class="mb-4">
-        <div class="input-group">
-            <input 
-                type="text" 
-                name="nombre" 
-                class="form-control" 
-                placeholder="Buscar por nombre" 
-                value="{{ request.GET.nombre }}">
-            <button class="btn btn-primary" type="submit">Buscar</button>
+        <div class="row">
+            <!-- Campo de búsqueda por nombre -->
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        name="nombre" 
+                        class="form-control" 
+                        placeholder="Buscar por nombre" 
+                        value="{{ request.GET.nombre }}">
+                </div>
+            </div>
+            <!-- Filtro por categoría -->
+            <div class="col-md-4">
+                <select name="categoria" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="gato" {% if request.GET.categoria == "gato" %}selected{% endif %}>Gatos</option>
+                    <option value="perro" {% if request.GET.categoria == "perro" %}selected{% endif %}>Perros</option>
+                </select>
+            </div>
+            <!-- Botón de búsqueda -->
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100" type="submit">Buscar</button>
+            </div>
         </div>
     </form>
     <div class="container">

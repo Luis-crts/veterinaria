@@ -13,15 +13,25 @@ def lista_publicaciones(request):
 def index(request):
     return HttpResponse("¡Bienvenido al sitio de Veterinaria!")
 
+from django.db.models import Q
+
 def lista_gatos(request):
     query = request.GET.get('nombre', '')
+    categoria = request.GET.get('categoria', '')
+
+    # Construir el filtro
+    filtros = Q()
     if query:
-        gatos = Publicacion.objects.filter(
-            Q(categoria='gato') & Q(nombre__icontains=query)
-        )
+        filtros &= Q(nombre__icontains=query)
+    if categoria:
+        filtros &= Q(categoria=categoria)
     else:
-        gatos = Publicacion.objects.filter(categoria='gato')
-    return render(request, 'lista_gatos.html', {'gatos': gatos, 'query': query})
+        filtros &= Q(categoria__in=['gato', 'perro'])  # Mostrar ambas categorías si no hay filtro
+
+    gatos = Publicacion.objects.filter(filtros)
+
+    return render(request, 'lista_gatos.html', {'gatos': gatos, 'query': query, 'categoria': categoria})
+
 
 def detalle_gato(request, gato_id):
     gato = get_object_or_404(Publicacion, id=gato_id)

@@ -1,0 +1,25 @@
+.filtro-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el botón Todos y Buscar */
+}
+
+.filtro-container select,
+.filtro-container button {
+    height: 40px; /* Tamaño uniforme */
+}
+
+body {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.card {
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.card img {
+    max-height: 300px;
+    object-fit: cover;
+}
