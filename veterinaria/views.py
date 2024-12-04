@@ -7,6 +7,11 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from .forms import PublicacionForm
 
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("¡Hola, esta es la página index!")
+
 
 def lista_publicaciones(request):
     publicaciones = Publicacion.objects.all()
